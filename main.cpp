@@ -1,7 +1,7 @@
 /*************************************************************************
     > File Name: main.cpp
-    > Author: yxx_yxx
-    > Mail: *********
+    > Author: xyx 
+    > Mail: xiaoyx.bit@gmail.com 
     > Created Time: Fri 18 Nov 2016 11:49:30 GMT
  ************************************************************************/
 #include "picture.h"
