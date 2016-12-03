@@ -10,17 +10,18 @@ using namespace std;
 
 class Pinhole{
    vec3f E; // eyepoint
-   vec3f C; // look at point
+   vec3f C; // centre of intersect
    vec3f U; // uppoint
-   vec3f L; // norm look at vec
+   vec3f L; // norm look at vec / view direction
    vec3f u, v; // for scanning
+   double width, height; // canvas width and height
+   double length; // distance from the camera to the centre of the image
+   double aspectRatio; // aspect ratio 
+   double xres, yres; // todo x resolution and y resolution
+   vec3f lup; // left up point
 
 public:
-   Pinhole(vec3f EE, vec3f CC, vec3f UU) {
-       E = EE, C = CC, U = UU;
-       L = (C-E);
-       L = L/L.length();
-       utmp = L^U;
-       vtmp = utmp^L;
-   }
+   Pinhole(vec3f EE, vec3f CC, vec3f UU, double _w, double _h, double _l);
+   vec3f getPoint(int x, int y);
+
 };
