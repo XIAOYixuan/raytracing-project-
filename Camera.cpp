@@ -17,6 +17,8 @@ Pinhole::Pinhole(vec3f EE, vec3f CC, vec3f UU, double _w, double _h, double _l) 
     u= L^U; u = u/u.length();
     v= u^L; 
     double tanv = 0.5*height / length; 
+    //printf("u: "); u.print();
+    //printf("v: "); v.print();
     lup = C - width*0.5*u - height*0.5*v;
     v = v * (yres/xres);
 }
