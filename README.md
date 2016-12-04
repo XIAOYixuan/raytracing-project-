@@ -3,7 +3,7 @@ an in-progress toy project
 
 write for fun
 
-## what have been down
+## what have been done
 a basic pinhole camera
 a sphere object
 
