@@ -32,7 +32,7 @@ int main() {
     */
     vec3f eyepoint = vec3f(300, 0, 0);
     vec3f canvas = vec3f(200, 0, 0);
-    Sphere sphere(vec3f(0, 0, 0), 50);
+    Sphere sphere(vec3f(0, 0, 0), 100);
     vec3f pa, pb;
     int n = 300;
     ppm myPic(n, n);
@@ -41,11 +41,11 @@ int main() {
     for(int i = 0; i < n; i ++) {
         for(int j = 0; j < n; j ++){
             vec3f viewpoint = pinhole.getPoint(i, j);
-            Ray ray(eyepoint, viewpoint, 1);
-                //viewpoint.print();
+            Ray ray(eyepoint, viewpoint, 10);
+            //viewpoint.print();
             if(sphere.intersectPoint(ray, pa, pb)) {
-                myPic.draw(i, j, colour(125, 255, 0));
-    //            printf("hit");
+                myPic.draw(i, j, colour(153, 204, 255));
+             //   printf("hit");
             } 
         }
     }

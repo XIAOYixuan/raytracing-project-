@@ -33,5 +33,6 @@ bool Sphere::intersectPoint(Ray ray, vec3f& pa, vec3f& pb) {
     double tb = -b - sqrt(delta);
     tb /= 2*a;
     pb = ray.getPoint(tb);
+    return true;
 }
 
