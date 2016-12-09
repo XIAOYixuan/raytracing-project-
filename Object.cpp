@@ -14,13 +14,13 @@ Sphere::Sphere(vec3f CC, double rr) {
 
 // calculate the intersection points (have 2 intersection points)
 // return True for have intersection pt 
-//      pa: the one close to the light
-//      pb: the one far from the light
-bool Sphere::intersectPoint(Ray ray, vec3f& pa, vec3f& pb) {
+//      interp: the closer point to the origin of the ray
+bool Sphere::intersectPoint(Ray ray, vec3f& interp) {
     // ray O V --> O + tV
     // sphere C r
     // (O+tV - C)^2 = r^2
     // V*V*t^2 + 2t(O-C)V + (O-C)(O-C)-r^2 = 0
+    // todo: what if the origin of the ray is in sphere
     vec3f Op = ray.O - C;
     double a = ray.V * ray.V;
     double b = Op * ray.V * 2.0;
@@ -28,11 +28,14 @@ bool Sphere::intersectPoint(Ray ray, vec3f& pa, vec3f& pb) {
     double delta = b*b - 4*a*c;
     if(delta < 0) return false;
     double ta = -b + sqrt(delta);
-    ta /= 2*a;
-    pa = ray.getPoint(ta);
     double tb = -b - sqrt(delta);
+    ta /= 2*a;
     tb /= 2*a;
-    pb = ray.getPoint(tb);
+    if(fabs(ta) < fabs(tb)) {
+        interp = ray.getPoint(ta);
+    } else {
+        interp = ray.getPoint(tb);
+    }
     return true;
 }
 

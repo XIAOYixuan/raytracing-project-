@@ -4,6 +4,7 @@
     > Mail: xiaoyx.bit@gmail.com 
     > Created Time: Fri 18 Nov 2016 11:49:30 GMT
  ************************************************************************/
+#include <vector>
 #include "picture.h"
 #include "Object.h"
 #include "Camera.h"
@@ -32,8 +33,14 @@ int main() {
     */
     vec3f eyepoint = vec3f(300, 0, 0);
     vec3f canvas = vec3f(200, 0, 0);
-    Sphere sphere(vec3f(0, 0, 0), 100);
-    vec3f pa, pb;
+    vector<Sphere> sphereList;
+    Sphere sphere(vec3f(-10, -10, 0), 100);
+    sphereList.push_back(sphere);
+    Sphere sphereb(vec3f(10, 10, 50), 100);
+    sphereList.push_back(sphereb);
+    int sphereCnt = sphereList.size();
+
+    vec3f interp;
     int n = 300;
     ppm myPic(n, n);
     Pinhole pinhole(eyepoint, canvas, vec3f(0, 0, 3), n, n, 1);
@@ -43,10 +50,12 @@ int main() {
             vec3f viewpoint = pinhole.getPoint(i, j);
             Ray ray(eyepoint, viewpoint, 10);
             //viewpoint.print();
-            if(sphere.intersectPoint(ray, pa, pb)) {
-                myPic.draw(i, j, colour(153, 204, 255));
-             //   printf("hit");
-            } 
+            for(int k = 0; k < sphereCnt; k++) {
+                sphere = sphereList[k];
+                if(sphere.intersectPoint(ray, interp)) {
+                    myPic.draw(i, j, colour(153, 204, 255));
+                }
+            }
         }
     }
     myPic.save("sphere.ppm");
