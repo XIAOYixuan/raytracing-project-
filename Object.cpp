@@ -39,3 +39,8 @@ bool Sphere::intersectPoint(Ray ray, vec3f& interp) {
     return true;
 }
 
+// p is on the surface of sphere
+vec3f Sphere::normVecAt(vec3f p) {
+    return p-C;
+}
+

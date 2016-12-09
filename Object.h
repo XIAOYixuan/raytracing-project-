@@ -22,6 +22,9 @@ class Sphere: public Object {
     public:
     Sphere(vec3f CC, double rr);
     bool intersectPoint(Ray ray, vec3f& interp);
+    vec3f normVecAt(vec3f p);
+    // unfinished Light Class
+    // bool isInShadow(vec3f light, vec3f p);
 };
 
 #endif // _OBJECT_H

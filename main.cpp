@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Camera.h"
 using namespace std;
+const double eps = 1e-6;
 
 int main() {
     // demo test ppm
@@ -33,11 +34,12 @@ int main() {
     */
     vec3f eyepoint = vec3f(300, 0, 0);
     vec3f canvas = vec3f(200, 0, 0);
+    vec3f light = vec3f(0, -300, 0);
     vector<Sphere> sphereList;
-    Sphere sphere(vec3f(-10, -10, 0), 100);
+    Sphere sphere(vec3f(0, 0, 0), 100);
     sphereList.push_back(sphere);
     Sphere sphereb(vec3f(10, 10, 50), 100);
-    sphereList.push_back(sphereb);
+    //sphereList.push_back(sphereb);
     int sphereCnt = sphereList.size();
 
     vec3f interp;
@@ -54,9 +56,24 @@ int main() {
                 sphere = sphereList[k];
                 if(sphere.intersectPoint(ray, interp)) {
                     myPic.draw(i, j, colour(153, 204, 255));
+                } else {
+                    continue;
+                }
+
+                Ray sray(light, interp, 10);
+                vec3f lightInterp;
+                if(sphere.intersectPoint(sray, lightInterp)) {
+                    vec3f deltaVec = lightInterp - interp;
+                    if(deltaVec.length() < eps) {
+                        // light reach!
+                        continue;
+                    } else {
+                        myPic.draw(i, j, colour(0, 0, 0));
+                    }
                 }
             }
         }
     }
+
     myPic.save("sphere.ppm");
 }
